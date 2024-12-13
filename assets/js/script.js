@@ -10,53 +10,77 @@ function init() {
   prodList();
 }
 
-let product= []
-
+let product = [];
 
 async function prodList() {
-    try {
-      let read = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: apiKey,
-        },
-      });
-      let data = await read.json();
-      product = data;
-      if (product.length > 0) {
-        console.log(product);
-        printProd(product)
-      } else {
-        console.log("Non sono presenti prodotti");
-      }
-    } catch (error) {
-      container.innerText = `Errore nel recupero di dati: ${error}`;
-    }
-  }
-
-
-
-  
-function printProd(product){
-    container.innerHTML='';
-    product.forEach(element => {
-        container.appendChild(createCard(element))
+  try {
+    let read = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: apiKey,
+      },
     });
+    let data = await read.json();
+    product = data;
+    if (product.length > 0) {
+      // console.log(product);
+      printProd(product);
+      newRandom(product);
+    } else {
+      console.log("Non sono presenti prodotti");
+    }
+  } catch (error) {
+    container.innerText = `Errore nel recupero di dati: ${error}`;
+  }
+}
+
+const randomNumber = (max, min) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+function newRandom(product) {
+  let randomNumbersArray =JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
+  product.forEach((element) => {
+    const randomNumbers = {
+      productId: element._id,
+      comment: randomNumber(5000, 50),
+      sales: randomNumber(250, 30),
+    };
+    const index = randomNumbersArray.findIndex(
+      (item) => item.productId === element._id
+    );
+    if (index === -1) {
+      randomNumbersArray.push(randomNumbers);
+    }
+  });
+  localStorage.setItem(
+    "randomNumbersArray",
+    JSON.stringify(randomNumbersArray)
+  );
+  //console.log(randomNumbersArray);
+  return randomNumbersArray;
+}
+
+function printProd(product) {
+  container.innerHTML = "";
+  product.forEach((element) => {
+    container.appendChild(createCard(element));
+  });
 }
 
 function createCard(item) {
-    // Card container
+  // Card container
   const col = document.createElement("div");
   col.className = "col";
 
   const card = document.createElement("div");
   card.className = "card  mb-3";
   col.appendChild(card);
-//img container
+  //img container
 
-const imgContainer = document.createElement('div')
-imgContainer.className= "img-container"
-card.appendChild(imgContainer)
+  const imgContainer = document.createElement("div");
+  imgContainer.className = "img-container";
+  card.appendChild(imgContainer);
 
   // Image
   const img = document.createElement("img");
@@ -76,7 +100,7 @@ card.appendChild(imgContainer)
   title.textContent = item.name;
   cardBody.appendChild(title);
 
- // Price
+  // Price
   const price = document.createElement("p");
   price.className = "card-text mt-3";
   price.textContent = `${item.description}`;
@@ -84,7 +108,8 @@ card.appendChild(imgContainer)
 
   // Buttons container
   const buttonContainer = document.createElement("div");
-  buttonContainer.className = " d-grid gap-3 d-lg-flex justify-content-center mb-2";
+  buttonContainer.className =
+    " d-grid gap-3 d-lg-flex justify-content-center mb-2";
   cardBody.appendChild(buttonContainer);
 
   // Compra ora button
@@ -92,7 +117,7 @@ card.appendChild(imgContainer)
   editBtn.className = "btn btn-warning btn-sm";
   editBtn.innerHTML = '<i class="bi bi-pencil-square" id="add"> Modifica</i>';
   editBtn.setAttribute("href", `./back.html?prodID=${item._id}`);
-  
+
   buttonContainer.appendChild(editBtn);
 
   // Scarta button

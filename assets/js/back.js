@@ -38,7 +38,6 @@ document.addEventListener("load", init());
 function init() {
   if (!param) {
     btnAdd.innerText = "Aggiungi";
-    addProduct();
   } else {
     prodList();
     const title = document.querySelector("h1");
@@ -53,18 +52,20 @@ function init() {
 
 async function prodList() {
   try {
-    let read = await fetch(url + param, {
+    const read = await fetch(url + param, {
       method: "GET",
       headers: {
         Authorization: apiKey,
       },
     });
-    let data = await read.json();
-    product = data;
-    printForm();
-    //console.log (product)
+    if (read.ok) {
+      let data = await read.json();
+      product = data;
+      printForm();
+      newRandom();
+    }
   } catch (error) {
-    container.innerText = `Errore nel recupero di dati: ${error}`;
+    console.log(`Errore nel recupero di dati: ${error}`);
   }
 }
 
@@ -112,7 +113,9 @@ async function addProduct() {
         "Content-Type": "application/json",
       },
     });
-    generateForID(newProd._id);
+    if (response.ok) {
+      const createdProduct = await response.json();
+    }
   } catch (error) {
     console.error(`Errore nel recupero di dati: ${error}`);
   }
@@ -158,7 +161,6 @@ async function editProd() {
     });
     if (response.ok) {
       const updatedProductResponse = await response.json();
-      generateForID(updatedProductResponse)
       alert("Prodotto modificato con successo");
       window.history.replaceState(null, null, window.location.pathname);
       location.reload();
@@ -206,17 +208,9 @@ async function delProd() {
 const randomNumber = (max, min) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
-const getNumber = (productId) => {
-  return localStorage.getItem(`randomNumber_${productId}`);
-};
-
-const saveNumber = (productId, n) => {
-  localStorage.setItem(`randomNumber_${productId}`,JSON.stringify(n));
-};
-
-function generateForID(id){
-  let productId = id._id
+/*
+function generateForID(id) {
+  let productId = id.name;
   let random = getNumber(productId);
   if (!random) {
     const x = randomNumber(5000, 50);
@@ -229,4 +223,38 @@ function generateForID(id){
   }
   console.log(`Numero casuale per il prodotto ${productId}:`, random);
   return random;
-};
+}
+*/
+
+function newRandom() {
+  let randomNumbersArray = JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
+
+  if (Array.isArray(product)) {
+    product.forEach((product) => {
+      const randomNumbers = {
+        productId: product._id,
+        comment: randomNumber(5000, 50),
+        sales: randomNumber(250, 30),
+      };
+      const existingIndex = randomNumbersArray.findIndex((item) => item.productId === prod._id);
+      if (existingIndex === -1) {
+        randomNumbersArray.push(randomNumbers);
+      }
+    });
+  } else if (product && product._id) {
+    const randomNumbers = {
+      productId: product._id,
+      comment: randomNumber(5000, 50),
+      sales: randomNumber(250, 30),
+    };
+    const existingIndex = randomNumbersArray.findIndex((item) => item.productId === product._id);
+    if (existingIndex === -1) {
+      randomNumbersArray.push(randomNumbers);
+    }
+  }else {
+    return
+  }
+  localStorage.setItem("randomNumbersArray", JSON.stringify(randomNumbersArray));
+  console.log(randomNumbersArray);
+  return randomNumbersArray;
+}

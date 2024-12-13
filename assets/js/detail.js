@@ -49,14 +49,20 @@ function printDetails() {
   const title = document.getElementById("title");
   title.innerText = product.name;
 
+//recupero i dati dal local storage e poi ne stampo i valori in base all'id presente
+const id= product._id
+//console.log(id)
+const storage = JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
+//console.log(storage)
+const savedData = storage.find((item)=>item.productId ===product._id)
+console.log(savedData)
 
   //prodotti venduti
   const number = document.getElementById("rndNumber");
-    number.innerText = `(${random(5000,50)})`;
-
+    number.innerText = `${savedData.comment}`;
 
   const sales = document.getElementById("sales");
-  sales.innerText = `+${random(250,30)} vendute questo mese`;
+  sales.innerText = `+${savedData.sales} vendute questo mese`;
 
 
   //badge con il prezzo
@@ -67,5 +73,5 @@ function printDetails() {
   const info = document.createElement("p");
   info.className = "fw-light";
   info.innerText = product.description;
-  divInfo.appendChild(info);
+  
 }

@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+.bg-custom {
+  background-color: #222f3f;
+}
+
+.bg-nav {
+  background-color: #364759;
+}
+
+.nav-link {
+  color: white;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:active {
+  color: white;
+  opacity: 1;
+}
+
+.img-container {
+  height: 30vh;
+}
+.card-body {
+  flex-grow: 1;
+}
+.img-container img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-text {
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

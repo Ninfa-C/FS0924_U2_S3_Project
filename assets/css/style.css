@@ -40,10 +40,14 @@ body {
   object-fit: cover;
 }
 
-.card-text {
+.card-text, .card-title {
   display: -webkit-box;
   -webkit-box-direction: vertical;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+}
+
+#imgCont img {
+  width: 100%;
 }

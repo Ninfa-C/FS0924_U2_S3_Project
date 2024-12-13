@@ -29,61 +29,43 @@ async function prodList() {
     });
     let data = await read.json();
     product = data;
-    printDetails()
+    printDetails();
     console.log(product);
   } catch (error) {
-    container.innerText = `Errore nel recupero di dati: ${error}`;
+    console.log(`Errore nel recupero di dati: ${error}`);
   }
 }
 
 function printDetails() {
   const container = document.getElementById("product-Container");
-
+  //breadcrumb
   const percorso = document.getElementById("dataPage");
   percorso.innerText = product.name;
-
-
-  //Div container
-  const div = document.createElement("div");
-  div.className = "container row detailImg";
-  container.appendChild(div);
-
-//img container
-const divimg = document.createElement("div");
-divimg.className = "col-4";
-divimg.setAttribute("id", 'imgCont');
-div.appendChild(divimg);
-
-  //img container
-  const img = document.createElement("img");
-  img.className = "mx-3";
+  //img
+  const img = document.getElementById("prodImg");
   img.setAttribute("src", product.imageUrl);
-  divimg.appendChild(img);
-  
-//info Container
-const divInfo = document.createElement("div");
-divInfo.className = "col-8";
-divInfo.setAttribute("id", '');
-div.appendChild(divInfo);
 
   //titolo
-  const title = document.createElement("h1");
-  title.className = "title mb-3";
+  const title = document.getElementById("title");
   title.innerText = product.name;
-  divInfo.appendChild(title);
+
+
+  //prodotti venduti
+  const number = document.getElementById("rndNumber");
+    number.innerText = `(${random(5000,50)})`;
+
+
+  const sales = document.getElementById("sales");
+  sales.innerText = `+${random(250,30)} vendute questo mese`;
+
 
   //badge con il prezzo
-  const badge = document.createElement("span");
-  badge.className = "badge bg-dark mb-3";
+  const badge = document.getElementById("price");
   badge.textContent = `€ ${product.price}`;
-  divInfo.appendChild(badge);
 
-//descrizione
-const info = document.createElement('p')
-info.className = "fw-light";
-info.innerText= product.description;
-divInfo.appendChild(info)
-
-
-
+  //descrizione
+  const info = document.createElement("p");
+  info.className = "fw-light";
+  info.innerText = product.description;
+  divInfo.appendChild(info);
 }

@@ -68,7 +68,33 @@ async function prodList() {
   }
 }
 
+function validityCheck() {
+  const value = priceInput.value;
+  const isInteger = /^-?\d+$/.test(value);
+  if (
+    !nameInput.value.trim() ||
+    !descriptionInput.value.trim() ||
+    !brandInput.value.trim() ||
+    !imageInput.value.trim() ||
+    !priceInput.value.trim()
+  ) {
+    alert("Tutti i campi devono essere compilati!");
+    return false;
+  }
+  if (!isInteger) {
+    alert("Inserire solo numeri interi.");
+    return false;
+  }
+  return true;
+}
+
+//console.log(validityCheck());
+
 async function addProduct() {
+  if (!validityCheck()) {
+    return; // Interrompe l'esecuzione se la validazione fallisce
+  }
+
   let newProd = new Product(
     nameInput.value,
     descriptionInput.value,
@@ -86,6 +112,7 @@ async function addProduct() {
         "Content-Type": "application/json",
       },
     });
+    generateForID(newProd._id);
   } catch (error) {
     console.error(`Errore nel recupero di dati: ${error}`);
   }
@@ -131,7 +158,8 @@ async function editProd() {
     });
     if (response.ok) {
       const updatedProductResponse = await response.json();
-      alert('Prodotto rimosso con successo');
+      generateForID(updatedProductResponse)
+      alert("Prodotto modificato con successo");
       window.history.replaceState(null, null, window.location.pathname);
       location.reload();
     } else {
@@ -167,10 +195,38 @@ async function delProd() {
         Authorization: apiKey,
       },
     });
-    alert("Product updated successfully: Prodotto rimosso con successo");
-      window.history.replaceState(null, null, window.location.pathname);
-      location.reload();
+    alert("Prodotto rimosso con successo");
+    window.history.replaceState(null, null, window.location.pathname);
+    location.reload();
   } catch (error) {
     console.log(error);
   }
 }
+
+const randomNumber = (max, min) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getNumber = (productId) => {
+  return localStorage.getItem(`randomNumber_${productId}`);
+};
+
+const saveNumber = (productId, n) => {
+  localStorage.setItem(`randomNumber_${productId}`,JSON.stringify(n));
+};
+
+function generateForID(id){
+  let productId = id._id
+  let random = getNumber(productId);
+  if (!random) {
+    const x = randomNumber(5000, 50);
+    const y = randomNumber(250, 30);
+    random = {
+      comment: x,
+      sales: y,
+    };
+    saveNumber(productId, random);
+  }
+  console.log(`Numero casuale per il prodotto ${productId}:`, random);
+  return random;
+};

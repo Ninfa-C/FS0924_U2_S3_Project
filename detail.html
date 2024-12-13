@@ -56,14 +56,37 @@
         </nav>
     </header>
     <main class="container-fluid">
-        <nav aria-label="breadcrumb">
+        <div aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Offerte</a></li>
-              <li class="breadcrumb-item active" aria-current="page" id="dataPage"></li>
+                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Offerte</a></li>
+                <li class="breadcrumb-item active" aria-current="page" id="dataPage"></li>
             </ol>
-          </nav>
-        <div id="product-Container"></div>
+        </div>
+        <div id="product-Container" class="row">
+            <div class="container detailImg col-3" id="imgCont">
+                <img alt="Product img" id="prodImg">
+            </div>
+            <div class="col-7">
+                <div class="border-bottom border-secondary-subtle">
+                    <h1 class="title fs-3" id="title"></h1>
+                    <div class="d-flex align-items-end flex-wrap my-3">
+                        <div class="d-flex align-items-center stars font-sm me-2" style="color: #FFAA46">
+                            <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
+                            <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
+                            <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
+                            <i class="bi bi-star-half" style="font-size: 1em; color: #FFAA46;"></i>
+                            <i class="bi bi-star" style="font-size: 1em; color: #FFAA46;"></i>
+                            3.5
+                        </div>
+                        <span class="text-body-secondary" id="rndNumber"></span>
+                    </div>
+                    <p id="sales"></p>
+                </div>
+                <span class="badge bg-dark mb-3" id="price"></span>
+            </div>
+            <div class="col-2"></div>
+        </div>
     </main>
 
 

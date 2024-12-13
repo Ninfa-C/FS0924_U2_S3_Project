@@ -35,6 +35,8 @@ async function prodList() {
   }
 
 
+
+  
 function printProd(product){
     container.innerHTML='';
     product.forEach(element => {

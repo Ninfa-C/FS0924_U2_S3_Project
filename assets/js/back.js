@@ -47,7 +47,7 @@ function init() {
     btnAdd.className = "btn btn-warning";
     printForm();
     deleteContainer.innerHTML =
-      '<button type="button" class="btn btn-danger" id="dltBtn">Cancella</button>';
+      '<button type="button" class="btn btn-danger" id="dltBtn" onclick = delProd()>Cancella</button>';
   }
 }
 
@@ -131,12 +131,9 @@ async function editProd() {
     });
     if (response.ok) {
       const updatedProductResponse = await response.json();
-      console.log("Product updated successfully:", updatedProductResponse);
+      alert('Prodotto rimosso con successo');
       window.history.replaceState(null, null, window.location.pathname);
-      btnAdd.innerText = "Aggiungi";
-      btnAdd.className = "btn btn-success";
-
-      reset();
+      location.reload();
     } else {
       const errorResponse = await response.json();
       console.error(
@@ -161,3 +158,19 @@ btnReset.addEventListener("click", function (e) {
   e.preventDefault();
   reset();
 });
+
+async function delProd() {
+  try {
+    await fetch(url + param, {
+      method: "DELETE",
+      headers: {
+        Authorization: apiKey,
+      },
+    });
+    alert("Product updated successfully: Prodotto rimosso con successo");
+      window.history.replaceState(null, null, window.location.pathname);
+      location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -39,9 +39,8 @@ async function prodList() {
 function printDetails() {
   const container = document.getElementById("product-Container");
 
-  const percorso = document.createElement("p");
-  percorso.innerText = "ciao";
-  container.appendChild(percorso);
+  const percorso = document.getElementById("dataPage");
+  percorso.innerText = product.name;
 
 
   //Div container
@@ -84,5 +83,7 @@ const info = document.createElement('p')
 info.className = "fw-light";
 info.innerText= product.description;
 divInfo.appendChild(info)
+
+
 
 }

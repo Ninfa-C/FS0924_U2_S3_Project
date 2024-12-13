@@ -69,11 +69,17 @@ div.appendChild(divInfo);
 
   //titolo
   const title = document.createElement("h1");
-  title.className = "title";
+  title.className = "title mb-3";
   title.innerText = product.name;
   divInfo.appendChild(title);
 
+  //badge con il prezzo
+  const badge = document.createElement("span");
+  badge.className = "badge bg-dark mb-3";
+  badge.textContent = `€ ${product.price}`;
+  divInfo.appendChild(badge);
 
+//descrizione
 const info = document.createElement('p')
 info.className = "fw-light";
 info.innerText= product.description;

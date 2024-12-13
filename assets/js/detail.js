@@ -57,21 +57,42 @@ const storage = JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
 const savedData = storage.find((item)=>item.productId ===product._id)
 console.log(savedData)
 
-  //prodotti venduti
+ //commenti ricevuti
   const number = document.getElementById("rndNumber");
     number.innerText = `${savedData.comment}`;
-
+ //prodotti venduti
   const sales = document.getElementById("sales");
   sales.innerText = `+${savedData.sales} vendute questo mese`;
 
 
   //badge con il prezzo
   const badge = document.getElementById("price");
-  badge.textContent = `€ ${product.price}`;
+  badge.textContent = `${product.price}`;
+  const badge2 = document.getElementById("price2");
+  badge2.textContent = `${product.price}`;
 
   //descrizione
-  const info = document.createElement("p");
-  info.className = "fw-light";
+  const info = document.getElementById("info");
   info.innerText = product.description;
-  
+
+  //data
+   
+  const date = document.getElementById('date')
+  date.innerText = dateTomorrow()
+  }
+
+const dateTomorrow =() => {
+    const days = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
+    const months = [
+      "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
+      "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"
+    ];
+    const today = new Date();
+    const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const dayOfWeek = days[tomorrow.getDay()];
+  const dayOfMonth = tomorrow.getDate();
+  const month = months[tomorrow.getMonth()];
+  return `${dayOfWeek}, ${dayOfMonth} ${month}`;
 }
+ 

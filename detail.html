@@ -63,7 +63,7 @@
                 <li class="breadcrumb-item active" aria-current="page" id="dataPage"></li>
             </ol>
         </div>
-        <div id="product-Container" class="row">
+        <div id="product-Container" class="row p-5">
             <div class="container detailImg col-3" id="imgCont">
                 <img alt="Product img" id="prodImg">
             </div>
@@ -77,15 +77,61 @@
                             <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
                             <i class="bi bi-star-half" style="font-size: 1em; color: #FFAA46;"></i>
                             <i class="bi bi-star" style="font-size: 1em; color: #FFAA46;"></i>
-                            3.5
+                            &nbsp;3.5
                         </div>
                         <span class="text-body-secondary" id="rndNumber"></span>
                     </div>
                     <p id="sales"></p>
                 </div>
-                <span class="badge bg-dark mb-3" id="price"></span>
+                <div class="border-bottom border-secondary-subtle mb-3">
+                    <div class="d-flex align-items-start">
+                        <p class="fs-1 fw-semibold my-0 py-0" id="price"></p>
+                        <p class="fs-custom py-3" i> &nbsp;99€</p>
+                    </div>
+                    <p>I prezzi degli articoli in vendita su AmazonClone includono l’IVA. In base all’indirizzo di
+                        spedizione, l’IVA potrebbe variare durante il processo di acquisto. Per maggiori informazioni <a
+                            href="javascript:void()">clicca qui.</a></p>
+                </div>
+                <div class="">
+                    <h6>Informazioni su questo articolo</h4>
+                        <p class="" id="info"></p>
+                </div>
             </div>
-            <div class="col-2"></div>
+            <div class="col-2 card h-25 pb-5">
+                <div class="">
+                    <div class="d-flex align-items-start">
+                        <p class="fs-1 fw-semibold my-0 py-0 " id="price2"></p>
+                        <p class="fs-custom py-3" i> &nbsp;99€</p>
+                    </div>
+                    <p>Consegna senza costi aggiuntivi <span class="fw-bold" id="date"></span >. Ordina entro <span class="text-success">5 min</span>.</p>
+                    <h3 class="fs-5 text-success fw-normal">Disponibilità immediata</h3>
+                    <button type="button" class="btn btn-warning w-100 rounded-pill fs-6 mb-4" id="addToCart">Aggiungi al carrello</button>
+                    <div class="fs-custom">
+                        <div class="row row-cols-2 mb-0">
+                            <p class="col-4 text-secondary mb-0">Spedizione</p>
+                            <p class="col-8 mb-0">AmazonClone</p>
+                        </div>
+                        <div class="row row-cols-2">
+                            <p class="col-4 text-secondary mb-0">Venditore</p>
+                            <p class="col-8 mb-0">AmazonClone</p>
+                        </div>
+                        <div class="row row-cols-2">
+                            <p class="col-4 text-secondary mb-0">Reso</p>
+                            <a class="col-8 mb-0 link-underline link-underline-opacity-0" href="javascript:void()">Restituisci entro <span id="resoDate"></span></a>
+                        </div>
+                        <div class="row row-cols-2">
+                            <p class="col-4 text-secondary mb-0">Pagamento</p>
+                            <a class="col-8 mb-0 link-underline link-underline-opacity-0" href="javascript:void()">Transazione sicura</a>
+                        </div>
+                        <div class="row row-cols-2">
+                            <p class="col-4 text-secondary mb-0">Servizio Clienti</p>
+                            <p class="col-8 mb-0">AmazonClone</p>
+                        </div>
+                    </div>
+
+                
+                </div>
+            </div>
         </div>
     </main>
 

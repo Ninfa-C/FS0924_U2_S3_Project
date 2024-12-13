@@ -30,7 +30,7 @@ body {
 }
 
 .img-container {
-  height: 30vh;
+  height: 35vh;
 }
 .card-body {
   flex-grow: 1;
@@ -38,6 +38,7 @@ body {
 .img-container img {
   height: 100%;
   object-fit: cover;
+  object-position: top;
 }
 
 .card-text, .card-title {
@@ -49,5 +50,14 @@ body {
 }
 
 #imgCont img {
-  width: 100%;
+  max-height: 65vh;  
+}
+
+#prodImg {
+width: 100%;
+object-fit: contain;
+}
+
+.fs-custom{
+  font-size: 0.85em;
 }

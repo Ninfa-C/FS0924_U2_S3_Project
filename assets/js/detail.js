@@ -79,6 +79,9 @@ console.log(savedData)
    
   const date = document.getElementById('date')
   date.innerText = dateTomorrow()
+
+  const reso= document.getElementById('resoDate')
+  reso.innerText = dateInFiveDays()
   }
 
 const dateTomorrow =() => {
@@ -96,3 +99,18 @@ const dateTomorrow =() => {
   return `${dayOfWeek}, ${dayOfMonth} ${month}`;
 }
  
+const dateInFiveDays = () => {
+    const days = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
+    const months = [
+      "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
+      "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"
+    ];
+    const today = new Date();
+    const inFiveDays = new Date(today);
+    inFiveDays.setDate(today.getDate() + 5); // Aggiungi 5 giorni alla data odierna
+    const dayOfWeek = days[inFiveDays.getDay()];
+    const dayOfMonth = inFiveDays.getDate();
+    const month = months[inFiveDays.getMonth()];
+    const year = inFiveDays.getFullYear();
+    return `${dayOfWeek} ${dayOfMonth} ${month} ${year}`;
+  };

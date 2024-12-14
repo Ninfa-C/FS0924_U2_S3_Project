@@ -61,3 +61,7 @@ object-fit: contain;
 .fs-custom{
   font-size: 0.85em;
 }
+
+.fs-sm{
+  font-size: 0.4em;
+}

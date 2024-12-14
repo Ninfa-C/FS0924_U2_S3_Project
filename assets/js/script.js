@@ -8,6 +8,7 @@ document.addEventListener("load", init());
 
 function init() {
   prodList();
+  refreshCartInfo()
 }
 
 let product = [];
@@ -45,6 +46,7 @@ function newRandom(product) {
       productId: element._id,
       comment: randomNumber(5000, 50),
       sales: randomNumber(250, 30),
+      centesimi: randomNumber(99, 25)
     };
     const index = randomNumbersArray.findIndex(
       (item) => item.productId === element._id
@@ -128,4 +130,14 @@ function createCard(item) {
   buttonContainer.appendChild(discardButton);
 
   return col;
+}
+
+
+//carrello
+
+function refreshCartInfo() {
+  let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cartNumber) {
+    cartNumber.innerText = cartInfo.length;
+  }
 }

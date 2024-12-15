@@ -8,7 +8,7 @@ const param = new URLSearchParams(window.location.search).get("prodID");
 //console.log(url + param);
 const cartIcon = document.getElementById("cartIcon");
 const cartNumber = document.getElementById("cartNumber");
-
+let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
 let product = [];
 
 document.addEventListener("load", init());
@@ -53,8 +53,6 @@ function printDetails() {
   title.innerText = product.name;
 
   //recupero i dati dal local storage e poi ne stampo i valori in base all'id presente
-  const id = product._id;
-  //console.log(id)
   const storage = JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
   //console.log(storage)
   const savedData = storage.find((item) => item.productId === product._id);
@@ -151,45 +149,52 @@ In più, se lo rimuovo io non voglio che il numero scenda sotto lo zero ma che r
 l'oggetto dall'array, quindi c'è un if all'interno dell'if che richiama lo stesso indice
 */
 
-
 //aggiungere al local storage che ho chiamato CartInfo
+const discarBtn = document.getElementById("discard");
+discarBtn.addEventListener("click", () => remove(product));
+
+
 function addToCart(item) {
-  let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
   const cartProd = cartInfo.find((item) => item._id === product._id);
   if (cartProd) {
+    if (cartProd.qt >= 8) {
+      alert("Hai raggiunto la soglia massima di acquisto");
+      return; // Blocca ulteriori incrementi
+    }
     cartProd.qt += 1;
   } else {
     let newObj = { ...item, qt: 1 };
     cartInfo.push(newObj);
+    discarBtn.removeAttribute('disabled')
   }
   localStorage.setItem("cart", JSON.stringify(cartInfo));
   if (cartNumber) {
     refreshCartInfo();
   }
- // console.log(cartInfo);
+  // console.log(cartInfo);
 }
 
-const discarBtn = document.getElementById("discard");
-discarBtn.addEventListener("click", () => remove(product));
+
 
 //rimuovere: prima recuperare dal LS CartInfo, poi trovare l'indice del prodotto e fare uno splice
 //su quell'indice. Salavare il nuovo array senza quell'indece nel local così da aggiornarlo e rendere le modifiche persistenti
 function remove(item) {
-  let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartProd = cartInfo.find((item) => item._id === product._id);
+  const cartProd = cartInfo.find((itemcart) => itemcart._id === item._id);
   //console.log(product)
   //console.log(cartInfo)
-  //console.log(cartProd)
+  console.log(cartProd);
+  console.log(cartProd.qt);
   if (cartProd) {
     cartProd.qt -= 1;
     if (cartProd.qt <= 0) {
-      cartInfo = cartInfo.filter((item) => item._id !== product._id);
+      cartInfo = cartInfo.filter((cartItem) => cartItem._id !== item._id);
+    discarBtn.setAttribute('disabled', true)
     }
     localStorage.setItem("cart", JSON.stringify(cartInfo));
     if (cartNumber) {
       refreshCartInfo();
+      return;
     }
-
     //console.log(cartInfo);
     return;
   } else {
@@ -201,7 +206,6 @@ function remove(item) {
 //fuonzione messsa per far aggiornare il numero nel carrello anche dopo un refresh, questa viene richiamata dall'aggiunta al carreno
 //e soprattutto all'init! ma non in rimuovi
 function refreshCartInfo() {
-  let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
   const total = cartInfo.reduce((sum, item) => sum + item.qt, 0);
   if (cartNumber) {
     cartNumber.innerText = total;

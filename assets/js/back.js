@@ -162,6 +162,20 @@ async function editProd() {
     if (response.ok) {
       const updatedProductResponse = await response.json();
       alert("Prodotto modificato con successo");
+      let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
+      cartInfo = cartInfo.map((item) => {
+        if (item._id === updatedProductResponse._id) {
+          // Modifica i valori di prodotto nel carrello
+          item.name = updatedProductResponse.name;
+          item.description = updatedProductResponse.description;
+          item.brand = updatedProductResponse.brand;
+          item.image = updatedProductResponse.image;
+          item.price = updatedProductResponse.price; // Aggiungi anche il nuovo prezzo
+        }
+        return item;
+      });
+      localStorage.setItem("cart", JSON.stringify(cartInfo));
+
       window.history.replaceState(null, null, window.location.pathname);
       location.reload();
     } else {
@@ -191,17 +205,30 @@ btnReset.addEventListener("click", function (e) {
 
 async function delProd() {
   try {
-    await fetch(url + param, {
+    const response = await fetch(url + param, {
       method: "DELETE",
       headers: {
         Authorization: apiKey,
       },
     });
-    alert("Prodotto rimosso con successo");
-    window.history.replaceState(null, null, window.location.pathname);
-    location.reload();
+    if (response.ok) {
+      alert("Prodotto rimosso con successo");
+
+      //eliminalo anche dal local storage
+      let cartInfo = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log("ProductId:", param); // Cambia con il nome corretto della variabile
+      cartInfo = cartInfo.filter((item) => item._id !== param);
+      console.log("CartInfo dopo il filtro:", cartInfo);
+      localStorage.setItem("cart", JSON.stringify(cartInfo));
+      
+      //ricarica la pagina senza il param
+      window.history.replaceState(null, null, window.location.pathname);
+      location.reload();
+    } else {
+      console.error("Errore durante la cancellazione:", await response.json());
+    }
   } catch (error) {
-    console.log(error);
+    console.log("Errore:", error);
   }
 }
 
@@ -227,7 +254,8 @@ function generateForID(id) {
 */
 
 function newRandom() {
-  let randomNumbersArray = JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
+  let randomNumbersArray =
+    JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
 
   if (Array.isArray(product)) {
     product.forEach((product) => {
@@ -236,7 +264,9 @@ function newRandom() {
         comment: randomNumber(5000, 50),
         sales: randomNumber(250, 30),
       };
-      const existingIndex = randomNumbersArray.findIndex((item) => item.productId === prod._id);
+      const existingIndex = randomNumbersArray.findIndex(
+        (item) => item.productId === prod._id
+      );
       if (existingIndex === -1) {
         randomNumbersArray.push(randomNumbers);
       }
@@ -247,14 +277,19 @@ function newRandom() {
       comment: randomNumber(5000, 50),
       sales: randomNumber(250, 30),
     };
-    const existingIndex = randomNumbersArray.findIndex((item) => item.productId === product._id);
+    const existingIndex = randomNumbersArray.findIndex(
+      (item) => item.productId === product._id
+    );
     if (existingIndex === -1) {
       randomNumbersArray.push(randomNumbers);
     }
-  }else {
-    return
+  } else {
+    return;
   }
-  localStorage.setItem("randomNumbersArray", JSON.stringify(randomNumbersArray));
+  localStorage.setItem(
+    "randomNumbersArray",
+    JSON.stringify(randomNumbersArray)
+  );
   console.log(randomNumbersArray);
   return randomNumbersArray;
 }

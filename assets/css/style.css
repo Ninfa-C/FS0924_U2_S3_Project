@@ -30,22 +30,30 @@ body {
 }
 
 .img-container {
-  height: 35vh;
+  height: 18em;
 }
 .card-body {
   flex-grow: 1;
 }
 .img-container img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
 }
 
-.card-text, .card-title {
+.card-text {
   display: -webkit-box;
   -webkit-box-direction: vertical;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.card-title{
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
 
@@ -64,4 +72,9 @@ object-fit: contain;
 
 .fs-sm{
   font-size: 0.4em;
+}
+
+#prodCartImg{
+  height: 8em;
+  object-fit: contain;
 }

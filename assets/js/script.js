@@ -245,6 +245,7 @@ function formSelect(item, cartInfo) {
       // Rimuovi dal carrello se qt è 0
       if (selectedValue === 0) {
         cartInfo.splice(index, 1);
+        printCart()
       }
       localStorage.setItem("cart", JSON.stringify(cartInfo));
      subtotal()
@@ -259,7 +260,6 @@ function formSelect(item, cartInfo) {
 //const formSelect = document.getElementById('formSelect')
 
 //funzione somma : API + arrray
-
 
 function subtotal(){
   const cartSum = document.getElementById("cartSum");

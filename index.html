@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container-fluid p-0 m-0 row">
+    <div class="container-fluid p-0 m-0 row overflow-visible">
         <div class="container-fluid p-0 col">
             <header class="mb-4">
                 <nav class="navbar navbar-expand-lg bg-custom flex-column">
@@ -72,12 +72,12 @@
                 <div class="container-fluid row row-cols-5" id="product-Container"></div>
             </main>
         </div>
-        <div id="summary" class="col-1 container-fluid p-0 border border-secondary-subtle d-flex flex-column">
+        <div id="summary" class="col-1 container-fluid p-0 border border-secondary-subtle sticky-top">
             <div class="my-2 text-center mb-2 p-0 border-bottom border-secondary-subtle">
                 <p class=" m-0"> Subtotale</p>
                 <p class="text-danger fw-semibold fs-4" id="cartSum"> 0,00 €</p>
             </div>
-<div id="prodContainer"></div>
+            <div id="prodContainer"></div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

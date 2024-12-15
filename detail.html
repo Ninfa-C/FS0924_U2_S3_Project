@@ -12,144 +12,159 @@
 </head>
 
 <body>
-    <header class="container-fluid px-0 mb-4">
-        <nav class="navbar navbar-expand-lg bg-custom flex-column">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="assets/imgs/logo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
-                </a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-nav">
-            <div class="container-fluid ">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="bi bi-list text-white"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link py-0" aria-current="Home" href="./index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link py-0" aria-current="Shows" href="#">Buoni Regalo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link py-0" aria-current="Movies" href="#">Supermercat</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link py-0 " aria-current="Recently added" href="#">Offerte</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link py-0" aria-current="My List" href="#">Amazon Basic</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link py-0" aria-current="My List" href="#">Acquista di nuovo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link py-0" aria-current="My List" href="#">Servizio Clienti</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex gap-3">
-                        <i id="cartIcon" class="bi bi-cart nav-link position-relative" style="font-size: 2em; color: #ffffff">
-                            <span class="position-absolute top-50 start-50 translate-middle fs-sm">
-                                <span id="cartNumber">0</span>
-                              </span>
-                        </i>
-                        <i class="bi bi-person-circle nav-link" style="font-size: 2em; color: #ffffff"></i>
+    <div class="container-fluid p-0 m-0 row overflow-visible">
+        <div class="container-fluid p-0 col">
+            <header class="container-fluid px-0 mb-4">
+                <nav class="navbar navbar-expand-lg bg-custom flex-column">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <img src="assets/imgs/logo.png" alt="Logo" width="100"
+                                class="d-inline-block align-text-top">
+                        </a>
+                    </div>
+                </nav>
+                <nav class="navbar navbar-expand-lg bg-nav">
+                    <div class="container-fluid ">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="bi bi-list text-white"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" aria-current="Home" href="./index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" aria-current="Shows" href="#">Buoni Regalo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" aria-current="Movies" href="#">Supermercat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0 " aria-current="Recently added" href="#">Offerte</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" aria-current="My List" href="#">Amazon Basic</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" aria-current="My List" href="#">Acquista di nuovo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" aria-current="My List" href="#">Servizio Clienti</a>
+                                </li>
+                            </ul>
+                            <div class="d-flex gap-3">
+                                <i id="cartIcon" class="bi bi-cart nav-link position-relative"
+                                    style="font-size: 2em; color: #ffffff">
+                                    <span class="position-absolute top-50 start-50 translate-middle fs-sm">
+                                        <span id="cartNumber">0</span>
+                                    </span>
+                                </i>
+                                <i class="bi bi-person-circle nav-link" style="font-size: 2em; color: #ffffff"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </nav>
+            </header>
+            <main class="container-fluid">
+                <div aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Offerte</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" id="dataPage"></li>
+                    </ol>
+                </div>
+                <div id="product-Container" class="row p-5">
+                    <div class="container detailImg col-3" id="imgCont">
+                        <img alt="Product img" id="prodImg">
+                    </div>
+                    <div class="col-7">
+                        <div class="border-bottom border-secondary-subtle">
+                            <h1 class="title fs-3" id="title"></h1>
+                            <div class="d-flex align-items-end flex-wrap my-3">
+                                <div class="d-flex align-items-center stars font-sm me-2" style="color: #FFAA46">
+                                    <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
+                                    <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
+                                    <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
+                                    <i class="bi bi-star-half" style="font-size: 1em; color: #FFAA46;"></i>
+                                    <i class="bi bi-star" style="font-size: 1em; color: #FFAA46;"></i>
+                                    &nbsp;3.5
+                                </div>
+                                <span class="text-body-secondary" id="rndNumber"></span>
+                            </div>
+                            <p id="sales"></p>
+                        </div>
+                        <div class="border-bottom border-secondary-subtle mb-3">
+                            <div class="d-flex align-items-start">
+                                <p class="fs-1 fw-semibold my-0 py-0 price"></p>
+                                <p class="fs-custom py-3 cents ms-1"></p>
+                            </div>
+                            <p>I prezzi degli articoli in vendita su AmazonClone includono l’IVA. In base all’indirizzo
+                                di
+                                spedizione, l’IVA potrebbe variare durante il processo di acquisto. Per maggiori
+                                informazioni <a href="javascript:void()">clicca qui.</a></p>
+                        </div>
+                        <div class="">
+                            <h6>Informazioni su questo articolo</h4>
+                                <p class="" id="info"></p>
+                        </div>
+                    </div>
+                    <div class="col-2 card h-25 pb-5">
+                        <div class="">
+                            <div class="d-flex align-items-start">
+                                <p class="fs-1 fw-semibold price"></p>
+                                <p class="fs-custom py-3 cents ms-1"></p>
+                            </div>
+                            <p>Consegna senza costi aggiuntivi <span class="fw-bold" id="date"></span>. Ordina entro
+                                <span class="text-success">5 min</span>.</p>
+                            <h3 class="fs-5 text-success fw-normal">Disponibilità immediata</h3>
+                            <button type="button" class="btn btn-warning w-100 rounded-pill fs-6 mb-2"
+                                id="addToCart">Aggiungi
+                                al carrello</button>
+                            <button type="button" class="btn btn-light w-100 rounded-pill fs-6 mb-4"
+                                id="discard">Rimuovi
+                                al carrello</button>
+                            <div class="fs-custom">
+                                <div class="row row-cols-2 mb-0">
+                                    <p class="col-4 text-secondary mb-0">Spedizione</p>
+                                    <p class="col-8 mb-0">AmazonClone</p>
+                                </div>
+                                <div class="row row-cols-2">
+                                    <p class="col-4 text-secondary mb-0">Venditore</p>
+                                    <p class="col-8 mb-0">AmazonClone</p>
+                                </div>
+                                <div class="row row-cols-2">
+                                    <p class="col-4 text-secondary mb-0">Reso</p>
+                                    <a class="col-8 mb-0 link-underline link-underline-opacity-0"
+                                        href="javascript:void()">Restituisci entro <span id="resoDate"></span></a>
+                                </div>
+                                <div class="row row-cols-2">
+                                    <p class="col-4 text-secondary mb-0">Pagamento</p>
+                                    <a class="col-8 mb-0 link-underline link-underline-opacity-0"
+                                        href="javascript:void()">Transazione sicura</a>
+                                </div>
+                                <div class="row row-cols-2">
+                                    <p class="col-4 text-secondary mb-0">Servizio Clienti</p>
+                                    <p class="col-8 mb-0">AmazonClone</p>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
-            </div>
-
-        </nav>
-    </header>
-    <main class="container-fluid">
-        <div aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Offerte</a></li>
-                <li class="breadcrumb-item active" aria-current="page" id="dataPage"></li>
-            </ol>
+            </main>
         </div>
-        <div id="product-Container" class="row p-5">
-            <div class="container detailImg col-3" id="imgCont">
-                <img alt="Product img" id="prodImg">
+        <div id="summary" class="col-1 container-fluid p-0 border border-secondary-subtle sticky-top">
+            <div class="my-2 text-center mb-2 p-0 border-bottom border-secondary-subtle">
+                <p class=" m-0"> Subtotale</p>
+                <p class="text-danger fw-semibold fs-4" id="cartSum"> 0,00 €</p>
             </div>
-            <div class="col-7">
-                <div class="border-bottom border-secondary-subtle">
-                    <h1 class="title fs-3" id="title"></h1>
-                    <div class="d-flex align-items-end flex-wrap my-3">
-                        <div class="d-flex align-items-center stars font-sm me-2" style="color: #FFAA46">
-                            <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
-                            <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
-                            <i class="bi bi-star-fill" style="font-size: 1em; color: #FFAA46;"></i>
-                            <i class="bi bi-star-half" style="font-size: 1em; color: #FFAA46;"></i>
-                            <i class="bi bi-star" style="font-size: 1em; color: #FFAA46;"></i>
-                            &nbsp;3.5
-                        </div>
-                        <span class="text-body-secondary" id="rndNumber"></span>
-                    </div>
-                    <p id="sales"></p>
-                </div>
-                <div class="border-bottom border-secondary-subtle mb-3">
-                    <div class="d-flex align-items-start">
-                        <p class="fs-1 fw-semibold my-0 py-0 price"></p>
-                        <p class="fs-custom py-3 cents ms-1"></p>
-                    </div>
-                    <p>I prezzi degli articoli in vendita su AmazonClone includono l’IVA. In base all’indirizzo di
-                        spedizione, l’IVA potrebbe variare durante il processo di acquisto. Per maggiori informazioni <a
-                            href="javascript:void()">clicca qui.</a></p>
-                </div>
-                <div class="">
-                    <h6>Informazioni su questo articolo</h4>
-                        <p class="" id="info"></p>
-                </div>
-            </div>
-            <div class="col-2 card h-25 pb-5">
-                <div class="">
-                    <div class="d-flex align-items-start">
-                        <p class="fs-1 fw-semibold price"></p>
-                        <p class="fs-custom py-3 cents ms-1"></p>
-                    </div>
-                    <p>Consegna senza costi aggiuntivi <span class="fw-bold" id="date"></span>. Ordina entro <span
-                            class="text-success">5 min</span>.</p>
-                    <h3 class="fs-5 text-success fw-normal">Disponibilità immediata</h3>
-                    <button type="button" class="btn btn-warning w-100 rounded-pill fs-6 mb-2" id="addToCart">Aggiungi
-                        al carrello</button>
-                        <button type="button" class="btn btn-light w-100 rounded-pill fs-6 mb-4" id="discard">Rimuovi
-                            al carrello</button>
-                    <div class="fs-custom">
-                        <div class="row row-cols-2 mb-0">
-                            <p class="col-4 text-secondary mb-0">Spedizione</p>
-                            <p class="col-8 mb-0">AmazonClone</p>
-                        </div>
-                        <div class="row row-cols-2">
-                            <p class="col-4 text-secondary mb-0">Venditore</p>
-                            <p class="col-8 mb-0">AmazonClone</p>
-                        </div>
-                        <div class="row row-cols-2">
-                            <p class="col-4 text-secondary mb-0">Reso</p>
-                            <a class="col-8 mb-0 link-underline link-underline-opacity-0"
-                                href="javascript:void()">Restituisci entro <span id="resoDate"></span></a>
-                        </div>
-                        <div class="row row-cols-2">
-                            <p class="col-4 text-secondary mb-0">Pagamento</p>
-                            <a class="col-8 mb-0 link-underline link-underline-opacity-0"
-                                href="javascript:void()">Transazione sicura</a>
-                        </div>
-                        <div class="row row-cols-2">
-                            <p class="col-4 text-secondary mb-0">Servizio Clienti</p>
-                            <p class="col-8 mb-0">AmazonClone</p>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
+            <div id="prodContainer"></div>
         </div>
-    </main>
-
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

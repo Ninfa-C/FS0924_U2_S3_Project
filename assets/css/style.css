@@ -9,6 +9,10 @@ body {
   font-size: 0.9em;
 }
 
+.container-fluid {
+  height: 100%;
+}
+
 .bg-custom {
   background-color: #222f3f;
 }
@@ -77,4 +81,9 @@ object-fit: contain;
 #prodCartImg{
   height: 8em;
   object-fit: contain;
+}
+
+#summary {
+  height: 100vh;
+  overflow-y: auto; /* Consente lo scrolling interno */
 }

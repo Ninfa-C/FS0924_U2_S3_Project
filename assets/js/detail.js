@@ -13,12 +13,16 @@ let product = [];
 
 document.addEventListener("load", init());
 
+
+
 function init() {
   if (!param) {
     window.location.href = "index.html";
   } else {
     prodList();
     refreshCartInfo();
+    const openBtn = document.getElementById("open");
+    openBtn.className = "d-none";
   }
 }
 
@@ -33,7 +37,7 @@ async function prodList() {
     let data = await read.json();
     product = data;
     printDetails();
-    printCart()
+    printCart();
     //console.log(product);
   } catch (error) {
     console.log(`Errore nel recupero di dati: ${error}`);
@@ -154,7 +158,6 @@ l'oggetto dall'array, quindi c'è un if all'interno dell'if che richiama lo stes
 const discarBtn = document.getElementById("discard");
 discarBtn.addEventListener("click", () => remove(product));
 
-
 function addToCart(item) {
   const cartProd = cartInfo.find((item) => item._id === product._id);
   if (cartProd) {
@@ -163,19 +166,24 @@ function addToCart(item) {
       return; // Blocca ulteriori incrementi
     }
     cartProd.qt += 1;
+    printCart();
+    return;
   } else {
     let newObj = { ...item, qt: 1 };
     cartInfo.push(newObj);
-    discarBtn.removeAttribute('disabled')
+    printCart();
+    discarBtn.removeAttribute("disabled");
   }
   localStorage.setItem("cart", JSON.stringify(cartInfo));
+  //seleziono il form attraverso l'id e poi ne modifico il valore
+  const selected = document.getElementById(item._id);
+  selected.value = cartProd.qt.toString();
+
   if (cartNumber) {
     refreshCartInfo();
   }
   // console.log(cartInfo);
 }
-
-
 
 //rimuovere: prima recuperare dal LS CartInfo, poi trovare l'indice del prodotto e fare uno splice
 //su quell'indice. Salavare il nuovo array senza quell'indece nel local così da aggiornarlo e rendere le modifiche persistenti
@@ -189,9 +197,12 @@ function remove(item) {
     cartProd.qt -= 1;
     if (cartProd.qt <= 0) {
       cartInfo = cartInfo.filter((cartItem) => cartItem._id !== item._id);
-    discarBtn.setAttribute('disabled', true)
+      discarBtn.setAttribute("disabled", true);
+      printCart();
     }
     localStorage.setItem("cart", JSON.stringify(cartInfo));
+    const selected = document.getElementById(item._id);
+    selected.value = cartProd.qt.toString();
     if (cartNumber) {
       refreshCartInfo();
       return;
@@ -213,15 +224,7 @@ function refreshCartInfo() {
   }
 }
 
-
 //implementazione delle funziona della pagina script riguardanti la stampa del carrello
-
-function refreshCartInfo() {
-  const total = cartInfo.reduce((sum, item) => sum + item.qt, 0);
-  if (cartNumber) {
-    cartNumber.innerText = total;
-  }
-}
 
 //stampa carrello
 
@@ -232,7 +235,7 @@ function printCart() {
   if (cartInfo.length <= 0 || !cartInfo) {
     summaryCart.className = "d-none";
   } else {
-    subtotal()
+    subtotal();
     const prodContainer = document.getElementById("prodContainer");
     prodContainer.innerHTML = "";
     cartInfo.forEach((element) => {
@@ -240,9 +243,6 @@ function printCart() {
     });
   }
 }
-
-
-
 
 function prodCart(item) {
   //contenitroe della carta
@@ -285,10 +285,10 @@ function prodCart(item) {
 }
 
 //funzione per gestire il CAMBIAMENTO del value del form con conoseguente cambio anche nel local storage
-
 function formSelect(item, cartInfo) {
   const formSelect = document.createElement("select");
   formSelect.className = "form-select form-select-sm fs-custom w-75";
+  formSelect.setAttribute("id", item._id);
 
   // Opzioni per il select
   const options = [
@@ -319,45 +319,66 @@ function formSelect(item, cartInfo) {
     const index = cartInfo.findIndex((itemcart) => itemcart._id === item._id);
 
     if (index !== -1) {
-      cartInfo[index].qt = selectedValue; 
-      
+      cartInfo[index].qt = selectedValue;
+
       // Rimuovi dal carrello se qt è 0
       if (selectedValue === 0) {
         cartInfo.splice(index, 1);
-        printCart()
+        printCart();
       }
       localStorage.setItem("cart", JSON.stringify(cartInfo));
-     subtotal()
+      subtotal();
       refreshCartInfo();
-      
     }
   });
-  
+
   return formSelect;
 }
 
-//const formSelect = document.getElementById('formSelect')
-
 //funzione somma : API + arrray
-
-function subtotal(){
+function subtotal() {
   const cartSum = document.getElementById("cartSum");
-    cartSum.innerText = "";
-    
-const total = cartInfo.reduce((sum, item) => {
-  const numberArrray =
-    JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
-  const producCent = numberArrray.find(
-    (product) => product.productId === item._id
-  );
-  //console.log(producCent.centesimi);
-  const cents = producCent ? producCent.centesimi : 0;
-  return sum + (item.price + cents / 100) * item.qt;
-}, 0);
-const formattedTotal = parseFloat(total.toFixed(2));
-cartSum.innerText = `${formattedTotal}€`;
+  cartSum.innerText = "";
+
+  const total = cartInfo.reduce((sum, item) => {
+    const numberArrray =
+      JSON.parse(localStorage.getItem("randomNumbersArray")) || [];
+    const producCent = numberArrray.find(
+      (product) => product.productId === item._id
+    );
+    //console.log(producCent.centesimi);
+    const cents = producCent ? producCent.centesimi : 0;
+    return sum + (item.price + cents / 100) * item.qt;
+  }, 0);
+  const formattedTotal = parseFloat(total.toFixed(2));
+  cartSum.innerText = `${formattedTotal}€`;
 }
 
+//FUNZIONI per gestire lo slide della summary quando presente
 
+const closeBtn = document.getElementById("close");
+const openBtn = document.getElementById("open");
+const summary = document.getElementById("summary");
+const page = document.getElementById("container");
+const arrowContainer = document.getElementById("arrowContainer");
+const cartContainer = document.getElementById("cartContainer");
 
-//console.log(formattedTotal);
+// Add event listener to close the summary when the close button is clicked
+closeBtn.addEventListener("click", close);
+openBtn.addEventListener("click", open);
+
+function close() {
+  cartContainer.classList.remove("show-summary");
+  cartContainer.classList.add("hide-summary", "d-none");
+  closeBtn.className= 'd-none'
+  openBtn.className='bi bi-chevron-left open-btn'
+}
+
+function open() {
+  console.log("hello");
+  cartContainer.classList.remove("hide-summary", "d-none");
+  cartContainer.classList.add("show-summary");
+openBtn.className= 'd-none'
+  closeBtn.className='bi bi-chevron-right close-btn'
+  
+}

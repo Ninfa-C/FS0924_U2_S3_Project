@@ -53,7 +53,7 @@ body {
   overflow: hidden;
 }
 
-.card-title{
+.card-title {
   display: -webkit-box;
   -webkit-box-direction: vertical;
   -webkit-box-orient: vertical;
@@ -62,23 +62,23 @@ body {
 }
 
 #imgCont img {
-  max-height: 65vh;  
+  max-height: 65vh;
 }
 
 #prodImg {
-width: 100%;
-object-fit: contain;
+  width: 100%;
+  object-fit: contain;
 }
 
-.fs-custom{
+.fs-custom {
   font-size: 0.85em;
 }
 
-.fs-sm{
+.fs-sm {
   font-size: 0.4em;
 }
 
-#prodCartImg{
+#prodCartImg {
   height: 8em;
   object-fit: contain;
 }
@@ -87,3 +87,27 @@ object-fit: contain;
   height: 100vh;
   overflow-y: auto; /* Consente lo scrolling interno */
 }
+
+.close-btn,
+.open-btn {
+  position: absolute;
+  font-size: 1.5em;
+  cursor: pointer;
+  top: 50%;
+  right: 85%;
+  padding: 1em;
+  z-index: 10;
+}
+
+
+.hide-summary {
+  transition:ease-in 0.5s;
+
+}
+
+.show-summary {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(0);
+}
+
+
